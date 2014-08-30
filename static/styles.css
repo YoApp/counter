@@ -1,0 +1,57 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+body {
+  font-family: "Montserrat";
+  font-weight: 700;
+  color: white;
+  background-color: #9B59B6;
+  text-align: center;
+}
+p {
+  font-size: 2em;
+}
+.container {
+  padding: 150px 0 50px;
+}
+#loader {
+  padding-top:100px;
+}
+#loaded {
+  display: none;
+}
+#counter, #last-user {
+  line-height: .75em;
+  margin: .25em;
+}
+@media (max-width:540px) {
+  #counter {
+    font-size: 3.5em;
+  }
+  #last-user {
+    font-size: 3em;
+  }
+}
+@media (min-width:540px) {
+  #counter {
+    font-size: 5em;
+  }
+  #last-user {
+    font-size: 3em;
+  }
+}
+@media (min-width:960px) {
+  #counter {
+    font-size: 7em;
+  }
+  #last-user {
+    font-size: 5em;
+  }
+}
+@media (min-width:1024px) {
+  #counter {
+    font-size: 9.5em;
+  }
+  #last-user {
+    font-size: 7em;
+  }
+}

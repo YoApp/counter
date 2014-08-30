@@ -1,0 +1,47 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/styles.css">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="shortcut icon" href="https://yoapp.s3.amazonaws.com/yo/favicon.ico">
+</head>
+<body>
+  <div class="container">
+    <p>Yo's sent</p>
+    <p id="counter">{{.Count}}</p>
+    <p>Last Yo from</p>
+    <p id="last-user" {{if .Winner}}class="animated pulse"{{end}}>
+      {{.Username}}
+    </p>
+  </div>
+  <script>
+    var socket = new WebSocket(constructWsURI());
+
+    var user = document.getElementById('last-user');
+    var counter = document.getElementById('counter');
+
+    socket.onmessage = function (event) {
+      var msg = JSON.parse(event.data);
+
+      user.innerHTML = msg.username;
+      counter.innerHTML = msg.count;
+
+      if (msg.winner) {
+        user.setAttribute('class', 'animated pulse');
+        socket.close();
+      }
+    }
+
+    function constructWsURI() {
+      var loc = window.location, new_uri;
+      if (loc.protocol === "https:") {
+            new_uri = "wss:";
+      } else {
+            new_uri = "ws:";
+      }
+      new_uri += "//" + loc.host;
+      new_uri += loc.pathname + "connect";
+
+      return new_uri;
+    }
+  </script>
+</body>
