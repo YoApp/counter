@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"text/template"
 	"time"
 
@@ -110,13 +111,20 @@ var upgrader = websocket.Upgrader{
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "3000"
+	}
+
 	go h.run()
+
 	http.HandleFunc("/", serveRoot)
 	http.Handle("/static/",
 		http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
 	http.HandleFunc("/yo", serveYo)
 	http.HandleFunc("/connect", serveWs)
-	http.ListenAndServe(":8080", nil)
+
+	http.ListenAndServe(":"+port, nil)
 }
 
 func serveRoot(w http.ResponseWriter, r *http.Request) {

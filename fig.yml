@@ -1,0 +1,13 @@
+redis:
+  image: redis
+  ports:
+    - "6379"
+web:
+  build: .
+  command: gin
+  volumes:
+    - .:/go/src/github.com/YoApp/counter
+  ports:
+    - "3000:3000"
+  links:
+    - redis
