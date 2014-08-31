@@ -1,0 +1,10 @@
+{
+	"ImportPath": "github.com/YoApp/counter",
+	"GoVersion": "go1.3",
+	"Deps": [
+		{
+			"ImportPath": "github.com/gorilla/websocket",
+			"Rev": "4292df70df546334d4174bcd77271253c9b7835c"
+		}
+	]
+}
