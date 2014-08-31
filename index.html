@@ -14,21 +14,24 @@
     </p>
   </div>
   <script>
-    var socket = new WebSocket(constructWsURI());
+    function startWs(uri) {
+      var socket = new WebSocket(constructWsURI());
 
-    var user = document.getElementById('last-user');
-    var counter = document.getElementById('counter');
+      socket.onmessage = function (event) {
+        var msg = JSON.parse(event.data);
 
-    socket.onmessage = function (event) {
-      var msg = JSON.parse(event.data);
+        user.innerHTML = msg.username;
+        counter.innerHTML = msg.count;
 
-      user.innerHTML = msg.username;
-      counter.innerHTML = msg.count;
-
-      if (msg.winner) {
-        user.setAttribute('class', 'animated pulse');
-        socket.close();
+        if (msg.winner) {
+          user.setAttribute('class', 'animated pulse');
+          socket.close();
+        }
       }
+
+      socket.onclose = function () {
+        setTimeout(startWs(constructWsURI()), 100);
+      };
     }
 
     function constructWsURI() {
@@ -43,5 +46,10 @@
 
       return new_uri;
     }
+
+    var user = document.getElementById('last-user');
+    var counter = document.getElementById('counter');
+
+    startWs(constructWsURI());
   </script>
 </body>
