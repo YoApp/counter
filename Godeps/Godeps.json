@@ -3,6 +3,10 @@
 	"GoVersion": "go1.3",
 	"Deps": [
 		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Rev": "8d6d4f929affa96b443abd7fdb5a32ffc27865dc"
+		},
+		{
 			"ImportPath": "github.com/gorilla/websocket",
 			"Rev": "4292df70df546334d4174bcd77271253c9b7835c"
 		}
