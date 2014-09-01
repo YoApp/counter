@@ -21,7 +21,7 @@
         var msg = JSON.parse(event.data);
 
         user.innerHTML = msg.username;
-        counter.innerHTML = msg.count;
+        counter.innerHTML = msg.count.toLocaleString();
 
         if (msg.winner) {
           user.setAttribute('class', 'animated pulse');
