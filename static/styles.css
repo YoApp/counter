@@ -1,14 +1,28 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
-
+a:link {color:white;}      /* unvisited link */
+a:visited {color:white;}  /* visited link */
+a:hover {color:white;}  /* mouse over link */
+a:active {color:white;}  /* selected link */
 body {
   font-family: "Montserrat";
   font-weight: 700;
   color: white;
   background-color: #9B59B6;
   text-align: center;
+  margin:0;
+  padding:0;
+  height:100%;
 }
 p {
   font-size: 2em;
+}
+footer {
+  font-weight: 400;
+  font-size : 16px;
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:60px;   /* Height of the footer */
 }
 .container {
   padding: 150px 0 50px;
