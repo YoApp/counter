@@ -30,6 +30,11 @@
       <a target="_blank" href="https://github.com/YoApp/counter">Source Code</a> | <a target="_blank" href="http://jobs.justyo.co/">We're Hiring!</a><br><br><br>
     </footer>
   </div>
+
+  <footer class="footer" >
+    <a target="_blank" href="https://github.com/YoApp/counter">Source Code</a> | <a target="_blank" href="http://jobs.justyo.co/">We're Hiring!</a><br><br><br>
+  </footer>
+
   <script>
     function startWs(uri) {
       var socket = new WebSocket(constructWsURI());
@@ -46,6 +51,9 @@
           socket.close();
         }
       }
+      socket.onclose = function () {
+        setTimeout(startWs(constructWsURI()), 5000);
+      };
     }
 
     function createWinnerFireworks() {
@@ -75,4 +83,24 @@
 
     startWs(constructWsURI());
   </script>
+
+  <!-- TODO: Don't hardcode this -->
+  <!-- Start of StatCounter Code for Default Guide -->
+  <script type="text/javascript">
+  var sc_project=10006800; 
+  var sc_invisible=1; 
+  var sc_security="8f2734c6"; 
+  var sc_https=1; 
+  var scJsHost = (("https:" == document.location.protocol) ?
+  "https://secure." : "http://www.");
+  document.write("<sc"+"ript type='text/javascript' src='" +
+  scJsHost+
+  "statcounter.com/counter/counter.js'></"+"script>");
+  </script>
+  <noscript><div class="statcounter"><a title="hits counter"
+  href="http://statcounter.com/free-hit-counter/"
+  target="_blank"><img class="statcounter"
+  src="http://c.statcounter.com/10006800/0/8f2734c6/1/"
+  alt="hits counter"></a></div></noscript>
+  <!-- End of StatCounter Code for Default Guide -->
 </body>

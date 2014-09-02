@@ -95,6 +95,15 @@ type msg struct {
 	Winner   bool   `json:"winner"`
 }
 
+func httpLog(handler http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL)
+		handler.ServeHTTP(w, r)
+		log.Printf("Completed in %s", time.Now().Sub(start).String())
+	})
+}
+
 func newPool(server, password string) *redis.Pool {
 	return &redis.Pool{
 		MaxIdle:     3,
@@ -202,7 +211,7 @@ func main() {
 	http.HandleFunc("/yo", serveYo)
 	http.HandleFunc("/connect", serveWs)
 
-	http.ListenAndServe(":"+port, nil)
+	log.Fatal(http.ListenAndServe(":"+port, httpLog(http.DefaultServeMux)))
 }
 
 func setInitialRedisValues() error {
