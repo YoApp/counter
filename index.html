@@ -9,7 +9,6 @@
 </head>
 <body {{if .Winner}}onload="createWinnerFireworks()"{{end}}>
   <div class="container">
-    {{if .Winner}}
     <div id="fireworks-template">
       <div id="fw" class="firework"></div>
       <div id="fp" class="fireworkParticle">
@@ -17,7 +16,6 @@
       </div>
     </div>
     <div id="fireContainer"></div>
-    {{end}}
     <div class="stats">
       <p>Yo's sent</p>
       <p id="counter">{{.Count}}</p>
@@ -30,10 +28,6 @@
       <a target="_blank" href="https://github.com/YoApp/counter">Source Code</a> | <a target="_blank" href="http://jobs.justyo.co/">We're Hiring!</a><br><br><br>
     </footer>
   </div>
-
-  <footer class="footer" >
-    <a target="_blank" href="https://github.com/YoApp/counter">Source Code</a> | <a target="_blank" href="http://jobs.justyo.co/">We're Hiring!</a><br><br><br>
-  </footer>
 
   <script>
     function startWs(uri) {
