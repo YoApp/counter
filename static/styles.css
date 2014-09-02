@@ -41,6 +41,9 @@ footer {
   line-height: .75em;
   margin: .25em;
 }
+#last-user {
+  overflow:hidden;
+}
 @media (max-width:540px) {
   #counter {
     font-size: 3.5em;
