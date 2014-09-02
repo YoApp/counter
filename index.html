@@ -2,17 +2,33 @@
   <title>Yo</title>
   <link rel="stylesheet" type="text/css" href="/static/styles.css">
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/fireworks.css">
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="shortcut icon" href="https://yoapp.s3.amazonaws.com/yo/favicon.ico">
+  <script type="text/javascript" src="/static/fireworks.js"></script>
 </head>
-<body>
+<body {{if .Winner}}onload="createWinnerFireworks()"{{end}}>
   <div class="container">
-    <p>Yo's sent</p>
-    <p id="counter">{{.Count}}</p>
-    <p>Last Yo from</p>
-    <p id="last-user" {{if .Winner}}class="animated infinite pulse"{{end}}>
-      {{.Username}}
-    </p>
+    {{if .Winner}}
+    <div id="fireworks-template">
+      <div id="fw" class="firework"></div>
+      <div id="fp" class="fireworkParticle">
+        <img src="static/image/particles.gif" alt="particle"/>
+      </div>
+    </div>
+    <div id="fireContainer"></div>
+    {{end}}
+    <div class="stats">
+      <p>Yo's sent</p>
+      <p id="counter">{{.Count}}</p>
+      <p>Last Yo from</p>
+      <p id="last-user" {{if .Winner}}class="animated infinite pulse"{{end}}>
+        {{.Username}}
+      </p>
+    </div>
+    <footer class="footer" >
+      <a target="_blank" href="https://github.com/YoApp/counter">Source Code</a> | <a target="_blank" href="http://jobs.justyo.co/">We're Hiring!</a><br><br><br>
+    </footer>
   </div>
   <script>
     function startWs(uri) {
@@ -25,14 +41,20 @@
         counter.innerHTML = msg.count.toLocaleString();
 
         if (msg.winner) {
-          user.setAttribute('class', 'animated pulse');
+          user.setAttribute('class', 'animated infinite pulse');
+          createWinnerFireworks();
           socket.close();
         }
       }
+    }
 
-      socket.onclose = function () {
-        setTimeout(startWs(constructWsURI()), 100);
-      };
+    function createWinnerFireworks() {
+      setTimeout(function() {
+        var r = 8+parseInt(Math.random()*8);
+        var p = 14+parseInt(Math.random()*14);
+        createFirework(r,p,2,null,null,null,null,null,Math.random()>0.5,false);
+        createWinnerFireworks();
+      },1+parseInt(Math.random()*1000));
     }
 
     function constructWsURI() {
