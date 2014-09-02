@@ -256,6 +256,11 @@ func serveRoot(w http.ResponseWriter, r *http.Request) {
 }
 
 func serveYo(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("Auth-Token") != os.Getenv("AUTH_TOKEN") {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
 	conn := pool.Get()
 	defer conn.Close()
 
