@@ -1,6 +1,6 @@
 # Counter
 
-A realtime counter to Yo's 100,000,000th Yo
+A realtime counter to Yo's 100,000,000th Yo.
 
 ## Getting Started
 
