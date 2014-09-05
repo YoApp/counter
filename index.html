@@ -20,9 +20,11 @@
       <p>Yo's sent</p>
       <p id="counter">{{.Count}}</p>
       <p>Last Yo from</p>
-      <p id="last-user" {{if .Winner}}class="animated infinite pulse"{{end}}>
-        {{.Username}}
-      </p>
+      <div id="last-user-wrapper">
+        <p id="last-user" {{if .Winner}}class="animated infinite pulse"{{end}}>
+          {{.Username}}
+        </p>
+      </div>
     </div>
     <footer class="footer" >
       <a target="_blank" href="https://github.com/YoApp/counter">Source Code</a> | <a target="_blank" href="http://jobs.justyo.co/">We're Hiring!</a><br><br><br>
