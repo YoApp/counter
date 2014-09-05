@@ -41,7 +41,7 @@ footer {
   line-height: .75em;
   margin: .25em;
 }
-#last-user {
+#last-user-wrapper {
   overflow:hidden;
 }
 @media (max-width:540px) {
