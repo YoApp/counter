@@ -19,13 +19,17 @@ p {
 footer {
   font-weight: 400;
   font-size : 16px;
-  position:absolute;
-  bottom:0;
+  margin-top: 50px;
   width:100%;
-  height:60px;   /* Height of the footer */
 }
 .container {
-  padding: 15px 0 50px;
+  display:flex;
+  flex-direction: column;
+  min-height:100%;
+}
+.stats {
+  flex: 1;
+  margin-top: 150px;
 }
 #loader {
   padding-top:100px;
@@ -36,6 +40,9 @@ footer {
 #counter, #last-user {
   line-height: .75em;
   margin: .25em;
+}
+#last-user {
+  overflow:hidden;
 }
 @media (max-width:540px) {
   #counter {
