@@ -1,11 +1,7 @@
-.PHONY: run push
+.PHONY: build push
 
 build:
-	fig build
-
-run: build
-	fig up
-
-push:
 	docker build -t justyo/counter .
+
+push: build
 	docker push justyo/counter
