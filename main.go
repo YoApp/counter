@@ -209,6 +209,7 @@ func main() {
 	http.Handle("/static/",
 		http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
 	http.HandleFunc("/yo", serveYo)
+	http.HandleFunc("/flips", getFlips)
 	http.HandleFunc("/connect", serveWs)
 
 	log.Fatal(http.ListenAndServe(":"+port, httpLog(http.DefaultServeMux)))
@@ -228,6 +229,31 @@ func setInitialRedisValues() error {
 	}
 
 	return nil
+}
+
+func getFlips(w http.ResponseWriter, r *http.Request) {
+	conn := pool.Get()
+	defer conn.Close()
+
+	msg := &msg{}
+
+	msg.Username = r.URL.Query().Get("username")
+    log.Println(msg.Username)
+	count, err := redis.Int64(conn.Do("GET", msg.Username))
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	msg.Count = count
+	log.Println(msg)
+	msgBytes, err := json.Marshal(msg)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+  	w.Write(msgBytes)
 }
 
 func serveRoot(w http.ResponseWriter, r *http.Request) {
@@ -314,6 +340,11 @@ func serveYo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := conn.Send("INCR", "count"); err != nil {
+		log.Println(err)
+		return
+	}
+
+	if err := conn.Send("INCR", msg.Username); err != nil {
 		log.Println(err)
 		return
 	}
